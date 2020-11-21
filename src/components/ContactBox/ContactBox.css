@@ -1,0 +1,42 @@
+.contact-box{
+    background-color: #fff;
+    height: calc(100vh - 60px);
+    width: 25%;
+    margin-right: 10px;
+    max-height: calc(100vh - 60px);
+    overflow-y: scroll;
+}
+::-webkit-scrollbar{
+    width: 0.01px;
+}
+
+.contact-search{
+    background-color: var(--gray);
+    width: 85%;
+    height: auto;
+    margin: 15px auto;
+    align-items: center;
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+.contact-search input{
+    width: 100%;
+}
+
+::placeholder{
+    color:var(--icon-color);
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+}
+
+.contact-search .MuiSvgIcon-root{
+    margin-right: 5px;
+    color: var(--icon-color);
+}
+
+hr{
+    border: 1px solid rgba(163, 169, 206, 0.2);
+}
+

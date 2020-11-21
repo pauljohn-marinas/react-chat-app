@@ -1,0 +1,19 @@
+.sidebar {
+  background-color: var(--bg-primary);
+  height: 100vh;
+  width: 20%;
+  max-width: 240px;
+
+  flex-direction: column;
+}
+
+.logo-container {
+  width: 80px;
+  filter: invert(100%);
+  margin: 30px auto;
+}
+
+.logo-container img {
+  width: 100%;
+  height: auto;
+}

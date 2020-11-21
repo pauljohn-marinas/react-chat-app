@@ -1,0 +1,33 @@
+.chat-input{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    border-top:1px solid rgba(163, 169, 206, 0.2);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 999;
+    background-color: #fff;
+}
+.chat-input form{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.chat-input button{
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.chat-input input{
+    width: 100%;
+}
+.chat-input .MuiSvgIcon-root{
+    color: var(--icon-color);
+    cursor: pointer;
+}
