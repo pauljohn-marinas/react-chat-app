@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ChatBox.css";
 import Avatar from "@material-ui/core/Avatar";
 import { useParams } from "react-router-dom";
-import { db } from "../../firebase";
+import db from "../../firebase";
 import ChatInput from "../ChatInput/ChatInput";
 import Message from "../Message/Message";
 import { useStateValue } from "../../StateProvider";

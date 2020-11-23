@@ -12,9 +12,16 @@ import db from "../../firebase";
 import { Switch, Route, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function SignIn({
+  signIn,
+  email,
+  setEmail,
+  password,
+  setPassword,
+  handlePassword,
+}) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showError, setShowError] = useState("");
   const [state, dispatch] = useStateValue();
@@ -22,41 +29,6 @@ function SignIn() {
   const modal = {
     open: { backgroundColor: "rgba(0,0,0,0.8)" },
     closed: { backgroundColor: "rgba(255,255,255,0.8)" },
-  };
-
-  const signIn = (e) => {
-    e.preventDefault();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        firebase.auth().onAuthStateChanged(function (user) {
-          console.log(user.uid);
-          if (user) {
-            db.collection("users")
-              .doc(user.uid)
-              .onSnapshot(async (snapshot) => {
-                await dispatch({
-                  type: actionTypes.SET_AUTH_USER_NAME,
-                  auth_user_name:
-                    snapshot.data().first_name +
-                    " " +
-                    snapshot.data().last_name,
-                });
-              });
-            dispatch({
-              type: actionTypes.SET_AUTH_USER_ID,
-              auth_user_id: user.uid,
-            });
-          } else {
-            // User is signed out.
-            // ...
-          }
-        });
-      })
-      .catch(function (error) {
-        setShowError(error.message);
-      });
   };
 
   return (
@@ -100,7 +72,7 @@ function SignIn() {
                   fullWidth
                   style={{ margin: "10px 0px", width: "100%" }}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handlePassword}
                 />
                 <Button
                   variant="contained"

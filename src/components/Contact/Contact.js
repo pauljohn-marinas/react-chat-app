@@ -3,7 +3,7 @@ import "./Contact.css";
 import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -39,17 +39,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function Contact({ id, firstName, lastName, image, status }) {
+function Contact() {
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
 
-  const selectContact = () => {
-    if (id) {
-      history.push(`/chat/${id}`);
-    }
-  };
+  // const selectContact = () => {
+  //   if (id) {
+  //     history.push(`/chat/${id}`);
+  //   }
+  // };
   return (
-    <div className="contact" onClick={selectContact}>
+    <div className="contact">
       <StyledBadge
         overlap="circle"
         anchorOrigin={{
@@ -57,12 +57,12 @@ function Contact({ id, firstName, lastName, image, status }) {
           horizontal: "right",
         }}
         variant="dot"
-        className={!status ? "offline" : ""}
+        // className={!status ? "offline" : ""}
       >
-        <Avatar alt={`${firstName} ${lastName}`} src={image && image} />
+        <Avatar alt="" src="" />
       </StyledBadge>
       <div className="message-data">
-        <h4>{`${firstName} ${lastName}`}</h4>
+        <h4>test</h4>
         <p>Lorem ipsum dolor sit amet..</p>
         <span>12:00 am</span>
       </div>

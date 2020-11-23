@@ -6,32 +6,7 @@ import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import { useStateValue } from "../../StateProvider";
 
 function TopNavigation() {
-  const [{ auth_user_name }] = useStateValue();
-  // const [loginUser, setLoginUser] = useState(null);
-
-  // useEffect(() => {
-  //   if (auth_user_id) {
-  //       db.collection("users")
-  //       .where("uid", "==", auth_user_id)
-  //       .get()
-  //       .then((doc) =>{
-  //         setLoginUser(doc.data())
-  //       })
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   if (auth_user_id) {
-  //     db.collection("users")
-  //       .doc(user_id)
-  //       .get()
-  //       .then((doc) => {
-  //         console.log(`doc ${doc.data()}`);
-  //         setLoginUser(doc.data());
-  //       });
-  //   }
-  // }, []);
-
+  // const [{ auth_user_name }] = useStateValue();
   return (
     <div className="top-nav">
       <div className="nav-left">
@@ -45,7 +20,7 @@ function TopNavigation() {
           <div className="user-image-container">
             <img src="" alt="" />
           </div>
-          <div className="user-name">{auth_user_name}</div>
+          <div className="user-name">test</div>
         </div>
       </div>
     </div>
