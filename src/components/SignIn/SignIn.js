@@ -18,7 +18,7 @@ function SignIn({
   setEmail,
   password,
   setPassword,
-  handlePassword,
+  // handlePassword,
 }) {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
@@ -72,7 +72,7 @@ function SignIn({
                   fullWidth
                   style={{ margin: "10px 0px", width: "100%" }}
                   value={password}
-                  onChange={handlePassword}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button
                   variant="contained"
