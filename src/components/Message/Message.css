@@ -1,0 +1,31 @@
+.message {
+  position: relative;
+  z-index: 998;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.message-text {
+  max-width: 400px;
+  color: #fff;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  background-color: #cacaca;
+  padding: 10px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.guest {
+  justify-content: flex-start;
+}
+
+.guest-text {
+  background-color: #162472;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}

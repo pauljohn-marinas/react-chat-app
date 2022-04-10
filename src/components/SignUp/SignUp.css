@@ -1,0 +1,36 @@
+.sign-up {
+  position: relative;
+  z-index: 999;
+  transform: translateY(-100vh);
+  margin: auto;
+  width: 400px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.sign-up-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(53, 53, 53, 0.2);
+  align-items: center;
+}
+.sign-up-header h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+.sign-up-header .MuiSvgIcon-root {
+  cursor: pointer;
+}
+.sign-up-header a {
+  color: #353535;
+}
+.sign-up-header .MuiSvgIcon-root:hover {
+  color: #303f9f;
+}
+.sign-up-body {
+  padding: 0 20px;
+}
