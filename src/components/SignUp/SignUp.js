@@ -3,35 +3,47 @@ import "./SignUp.css";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { db } from "../../firebase.js";
 import firebase from "firebase";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/userSlice"
+
 
 function SignUp({ showModal, setShowModal }) {
+  const [fullname, setFullname] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  
 
   const modal = {
     open: { y: "0" },
     closed: { y: "-100vh" },
   };
+  const dispatch = useDispatch();
 
   const signUp = (e) => {
     e.preventDefault();
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((data) => {
-        db.collection("users").doc(data.user.uid).set({
-          first_name: firstname,
-          last_name: lastname,
-          uid: data.user.uid,
-          image_url: "image.jpg",
-          createdAt: new Date(),
-          is_online: false,
+      .then((userAuth) => {
+        userAuth.user.updateProfile({
+          displayName: fullname,
+          photoURL: profilePic,
+        })
+        .then(() => {
+          dispatch(
+            login(
+              {
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                displayName: fullname,
+                photoUrl: profilePic
+              }
+            )
+          )
         });
         setShowModal(!showModal);
       })
@@ -54,20 +66,20 @@ function SignUp({ showModal, setShowModal }) {
       <div className="sign-up-body">
         <form autoComplete="off" onSubmit={signUp}>
           <TextField
-            label="First Name"
+            label="Full Name"
             placeholder="Enter First Name"
             fullWidth
             style={{ margin: "10px 20px", width: "calc(100% - 40px)" }}
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
           />
           <TextField
-            label="Last Name"
-            placeholder="Enter Last Name"
+            label="Profile Picture URL(optional)"
+            placeholder="Enter Profile Picture URL"
             fullWidth
             style={{ margin: "10px 20px", width: "calc(100% - 40px)" }}
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
+            value={profilePic}
+            onChange={(e) => setProfilePic(e.target.value)}
           />
           <TextField
             label="Email Address"
@@ -86,13 +98,6 @@ function SignUp({ showModal, setShowModal }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <TextField
-            label="Confirm Password"
-            placeholder="Confirm your Password"
-            type="password"
-            fullWidth
-            style={{ margin: "10px 20px", width: "calc(100% - 40px)" }}
-          />
           <Button
             variant="contained"
             color="primary"
@@ -103,6 +108,7 @@ function SignUp({ showModal, setShowModal }) {
               width: "calc(100% - 40px)",
             }}
             size="large"
+            onClick={signUp}
           >
             Sign Up
           </Button>

@@ -8,46 +8,46 @@ import {
   useHistory,
 } from "react-router-dom";
 import firebase from "firebase";
+import { useSelector, useDispatch } from "react-redux"
+import { selectUser, logout } from "./redux/userSlice"
+// import { login } from "../../redux/userSlice"
 
 function App() {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   // const history = useHistory();
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   
-  // useEffect(() => {
-  //   // if (auth_user_id !== null) {
-  //   firebase.auth().onAuthStateChanged((authUser) => {
-  //     if (authUser) {
-  //       dispatch({
-  //         type: actionTypes.SET_AUTH_USER_ID,
-  //         auth_user_id: authUser.user.uid,
-  //       });
-  //     } else {
-  //       dispatch({
-  //         type: actionTypes.SET_AUTH_USER_ID,
-  //         auth_user_id: null,
-  //       });
-  //     }
-  //   });
-  //   // }
-  // }, []);
+  useEffect(() => {
+    // if (auth_user_id !== null) {
+    firebase.auth().onAuthStateChanged((authUser) => {
+      if (authUser) {
+        console.log(authUser);
+        // dispatch(
+        //   login(
+        //     {
+        //       firstName: authUser.user.ifirst_n,
+        //       lastName: lastname,
+        //     }
+        //   )
+        // )
+      } else {
+        dispatch(logout());
+      }
+    });
+    // }
+  }, []);
 
   return (
     <div className="App">
       <Router>
         <Redirect from="/" to="/signin" />
-        {/* {!auth_user_id ? (
-          <SignIn
-            signIn={signIn}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-          />
-        ) : ( */}
-        <SignIn/>
-         {/* <ChatApp /> */}
-        {/* )} */}
+        {!user ? (
+          <SignIn/>
+        ) : (
+          <ChatApp />
+        )}
       </Router>
     </div>
   );
