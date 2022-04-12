@@ -9,8 +9,7 @@ import {
 } from "react-router-dom";
 import firebase from "firebase";
 import { useSelector, useDispatch } from "react-redux"
-import { selectUser, logout } from "./redux/userSlice"
-// import { login } from "../../redux/userSlice"
+import { selectUser, logout, login } from "./redux/userSlice"
 
 function App() {
   const user = useSelector(selectUser);
@@ -20,18 +19,18 @@ function App() {
   // const [password, setPassword] = useState("");
   
   useEffect(() => {
-    // if (auth_user_id !== null) {
-    firebase.auth().onAuthStateChanged((authUser) => {
-      if (authUser) {
-        console.log(authUser);
-        // dispatch(
-        //   login(
-        //     {
-        //       firstName: authUser.user.ifirst_n,
-        //       lastName: lastname,
-        //     }
-        //   )
-        // )
+    firebase.auth().onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(
+          login(
+            {
+              email: userAuth.email,
+              uid: userAuth.uid,
+              displayName: userAuth.displayName,
+              photoUrl: userAuth.photoURL,
+            }
+          )
+        )
       } else {
         dispatch(logout());
       }

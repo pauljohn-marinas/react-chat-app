@@ -3,7 +3,9 @@ import "./SignUp.css";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Alert from '@material-ui/lab/Alert';
 import firebase from "firebase";
+import { db } from "../../firebase.js";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,24 +13,40 @@ import { login } from "../../redux/userSlice"
 
 
 function SignUp({ showModal, setShowModal }) {
+
+  const dispatch = useDispatch();
   const [fullname, setFullname] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registerError, setRegisterError] = useState("");
   
-
   const modal = {
     open: { y: "0" },
     closed: { y: "-100vh" },
   };
-  const dispatch = useDispatch();
 
   const signUp = (e) => {
+
     e.preventDefault();
-    firebase
+    if(!fullname){
+      setRegisterError("Please enter a full name!")
+    }else{
+      firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
+      .then((data) => {
+        // add user data to users collection
+        db.collection("users").doc(data.user.uid).set({
+          full_name: fullname,
+          uid: data.user.uid,
+          image_url: profilePic,
+          createdAt: new Date(),
+          is_online: false,
+        });
+      })
       .then((userAuth) => {
+        // update the name and url property that is sent back with the desired value
         userAuth.user.updateProfile({
           displayName: fullname,
           photoURL: profilePic,
@@ -48,8 +66,10 @@ function SignUp({ showModal, setShowModal }) {
         setShowModal(!showModal);
       })
       .catch(function (error) {
-        console.log(error);
+        setRegisterError(error.message);
       });
+    }
+    
   };
   return (
     <motion.div
@@ -65,6 +85,12 @@ function SignUp({ showModal, setShowModal }) {
       </div>
       <div className="sign-up-body">
         <form autoComplete="off" onSubmit={signUp}>
+          <Alert 
+            severity="error"
+            style={ registerError ? { display: "flex", marginTop: "10px"} : { display: "none", marginTop: "10px"}}
+          >
+              {registerError}
+          </Alert>
           <TextField
             label="Full Name"
             placeholder="Enter First Name"

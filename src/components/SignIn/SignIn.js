@@ -24,7 +24,6 @@ function SignIn() {
         dispatch(login);
       })
       .catch(function (error) {
-        // setShowError(error.message);
         console.log(error);
       });
   };
